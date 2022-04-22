@@ -58,7 +58,7 @@ function Navbar() {
             />
             <p
               className={
-                pathMatchRoute('/profile')
+                pathMatchRoute('/profile', '/sign-in')
                   ? 'navbarListItemNameActive'
                   : 'navbarListItemName'
               }
