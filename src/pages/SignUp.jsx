@@ -10,7 +10,7 @@ import { db } from '../firebase.config'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { serverTimestamp, doc, setDoc } from 'firebase/firestore'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
