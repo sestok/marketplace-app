@@ -32,7 +32,7 @@ function SignIn() {
         password
       )
       if (userCredential.user) {
-        alert('Signed In!')
+        navigate('/')
       }
     } catch (error) {
       toast.error('Invalid Credentials')
