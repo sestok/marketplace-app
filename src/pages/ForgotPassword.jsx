@@ -12,9 +12,15 @@ function ForgotPassword() {
     try {
       const auth = getAuth()
       await sendPasswordResetEmail(auth, email)
-      toast.success('Email is successfully sent :)')
+      toast.success('Email is successfully sent :)', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
     } catch (error) {
-      toast.error('Process failed')
+      toast.error('Process failed', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
     }
   }
   return (

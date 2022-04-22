@@ -25,25 +25,25 @@ function OAuth() {
           email: user.email,
           timestamp: serverTimestamp(),
         })
-        toast.success('Successfully auothrized')
-        navigate('/')
       }
+      toast.success('Successfully auothrized', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
+      navigate('/')
     } catch (error) {
-      toast.error('Could not complete the authorization')
+      toast.error('Error processing the authorization', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
     }
   }
   return (
     <div className='socialLogin'>
-      <p>
-        Sign {location.pathname === '/sign-up' ? 'Up' : 'In'} With
-        <button className='socialIconDiv' onClick={onGoogleClick}>
-          <img
-            className='socialIconImg'
-            src={googleIcon}
-            alt='Process with Google Account'
-          />
-        </button>
-      </p>
+      <p>Sign {location.pathname === '/sign-up' ? 'up' : 'in'} with </p>
+      <button className='socialIconDiv' onClick={onGoogleClick}>
+        <img className='socialIconImg' src={googleIcon} alt='google' />
+      </button>
     </div>
   )
 }

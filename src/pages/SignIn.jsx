@@ -35,8 +35,15 @@ function SignIn() {
       if (userCredential.user) {
         navigate('/')
       }
+      toast.success('Signed In', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
     } catch (error) {
-      toast.error('Invalid Credentials')
+      toast.error('Invalid Credentials', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
     }
   }
 

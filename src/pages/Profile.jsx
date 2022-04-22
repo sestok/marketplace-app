@@ -17,6 +17,10 @@ function Profile() {
   const navigate = useNavigate()
   const onLogout = () => {
     auth.signOut()
+    toast.success('Signed Out Successfully', {
+      autoClose: 2500,
+      hideProgressBar: true,
+    })
     navigate('/')
   }
   const onSubmit = async () => {
@@ -31,10 +35,16 @@ function Profile() {
         await updateDoc(userRef, {
           name: name,
         })
-        toast.success('Updated successfully')
+        toast.success('Updated successfully', {
+          autoClose: 2500,
+          hideProgressBar: true,
+        })
       }
     } catch (error) {
-      toast.error('Error updating profile')
+      toast.error('Error updating profile', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
     }
   }
   const onChange = (e) => {

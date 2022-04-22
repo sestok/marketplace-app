@@ -47,9 +47,16 @@ function SignUp() {
       delete formDataCopy.password
       formDataCopy.timestamp = serverTimestamp()
       await setDoc(doc(db, 'users', user.uid), formDataCopy)
+      toast.success('Successfully Signed Up', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
       navigate('/')
     } catch (error) {
-      toast.error('Something is wrong')
+      toast.error('Something is wrong', {
+        autoClose: 2500,
+        hideProgressBar: true,
+      })
     }
   }
 
@@ -96,17 +103,15 @@ function SignUp() {
           <Link to='/forgot' className='forgotPasswordLink'>
             Forgot Password
           </Link>
-          <div className='signUnBar'>
+          <div className='signUpBar'>
             <p className='signUpText'>Sign Up</p>
-            <button className='signUpButton'>
+            <button className='signInButton'>
               <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
             </button>
           </div>
         </form>
-
         <OAuth />
-
-        <Link to='/profile' className='registerLink'>
+        <Link to='/sign-in' className='registerLink'>
           or Sign In
         </Link>
       </div>
