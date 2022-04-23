@@ -32,7 +32,7 @@ function Category() {
         )
         // Query Snapshot
         const querySnap = await getDocs(q)
-        let listings = []
+        const listings = []
         querySnap.forEach((doc) => {
           return listings.push({
             id: doc.id,
@@ -49,7 +49,7 @@ function Category() {
       }
     }
     fetchListings()
-  }, [])
+  }, [params.categoryName])
 
   return (
     <div className='category'>
@@ -63,10 +63,10 @@ function Category() {
       ) : listings && listings.length > 0 ? (
         <>
           <main>
-            <ul className="categoryListings">
-              {listings.map((listings) => {
-                <h3>{listings.data.name}</h3>
-              })}
+            <ul className='categoryListings'>
+              {listings.map((listing) => (
+                <h3 key={listing.id}>{listing.data.name}</h3>
+              ))}
             </ul>
           </main>
         </>
