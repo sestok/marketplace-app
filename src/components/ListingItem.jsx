@@ -5,7 +5,7 @@ import wheelIcon from '../assets/svg/wheelIcon.svg'
 import carSeats from '../assets/svg/carSeats.svg'
 import autoParking from '../assets/svg/autoParking.svg'
 
-function ListingItem({ listing, id }) {
+function ListingItem({ listing, onDelete }) {
   return (
     <li className='categoryListing'>
       <Link
@@ -34,15 +34,26 @@ function ListingItem({ listing, id }) {
           <div className='categoryListingInfoDiv'>
             <img src={wheelIcon} alt='Seats' width='17' />
             <p className='categoryListingInfoText'>
-              {listing.wheels > 4 ? `${listing.wheels} Size / Sport` : 'Standard'}
+              {listing.wheels > 4
+                ? `${listing.wheels} Size / Sport`
+                : 'Standard'}
             </p>
             <img src={autoParking} alt='Auto Parking' width='17' />
             <p className='categoryListingInfoText'>
-              {listing.autoParking ? 'Auto-Parking Available' : 'None'}
+              {listing.autoParking
+                ? 'Auto-Parking Available'
+                : 'Auto-Parking N/A'}
             </p>
           </div>
         </div>
       </Link>
+      {onDelete && (
+        <DeleteIcon
+          className='removeIcon'
+          fill='rgb(231,76,60)'
+          onClick={() => onDelete(listing.id, listing.name)}
+        />
+      )}
     </li>
   )
 }
