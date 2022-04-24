@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
 
 function NewListing() {
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     type: 'sale',
     name: '',
@@ -36,6 +37,9 @@ function NewListing() {
       isMounted.current = false
     }
   }, [isMounted])
+  if (loading) {
+    return <Spinner />
+  }
   return <div>NewListing</div>
 }
 
