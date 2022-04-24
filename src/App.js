@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import PrivateRoute from './components/PrivateRoute'
 import Category from './pages/Category'
+import NewListing from './pages/NewListing'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path='/profile' element={<Profile />} />
           </Route>
           <Route path='/forgot' element={<ForgotPassword />} />
+          <Route path='/new-listing' element={<NewListing />} />
         </Routes>
         <Navbar />
       </Router>
