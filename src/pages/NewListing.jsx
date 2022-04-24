@@ -20,6 +20,20 @@ function NewListing() {
     regularPrice: 0,
     discountedPrice: 0,
   })
+  const {
+    type,
+    name,
+    seats,
+    wheels,
+    autoParking,
+    address,
+    offer,
+    images,
+    latitude,
+    longitude,
+    regularPrice,
+    discountedPrice,
+  } = formData
   const auth = getAuth()
   const navigate = useNavigate()
   const isMounted = useRef(true)
@@ -37,10 +51,46 @@ function NewListing() {
       isMounted.current = false
     }
   }, [isMounted])
+  const onSubmit = (e) => {
+    e.preventDefault()
+  }
+  const onMutate = (e) => {
+    // here
+  }
   if (loading) {
     return <Spinner />
   }
-  return <div>NewListing</div>
+  return (
+    <div className='profile'>
+      <header>
+        <p className='pageHeader'>Add a New Listing</p>
+      </header>
+      <main>
+        <form onSubmit={onSubmit}>
+          <div className='formButtons'>
+            <button
+              type='button'
+              id='type'
+              value='sale'
+              onClick={onMutate}
+              className={type === 'sale' ? 'formButtonActive' : 'formButton'}
+            >
+              Sell
+            </button>
+            <button
+              type='button'
+              id='type'
+              value='rent'
+              onClick={onMutate}
+              className={type === 'rent' ? 'formButtonActive' : 'formButton'}
+            >
+              Rent
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  )
 }
 
 export default NewListing
