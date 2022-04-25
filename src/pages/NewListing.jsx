@@ -3,21 +3,20 @@ import { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
-import e from 'express'
 
 function NewListing() {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     type: 'sale',
     name: '',
-    seats: '4',
-    wheels: '13',
+    seats: '',
+    wheels: '',
     autoParking: true,
     address: '',
     images: {},
     latitude: 0,
     longitude: 0,
-    offer: false,
+    offer: true,
     regularPrice: 0,
     discountedPrice: 0,
   })
@@ -151,7 +150,7 @@ function NewListing() {
                 id='wheels'
                 value={wheels}
                 onChange={onMutate}
-                min='9'
+                min='10'
                 max='50'
                 required
               />
@@ -185,7 +184,7 @@ function NewListing() {
               className={offer ? 'formButtonActive' : 'formButton'}
               type='button'
               id='offer'
-              value={false}
+              value={true}
               onClick={onMutate}
             >
               Yes
@@ -215,7 +214,7 @@ function NewListing() {
               max='750000000'
               required
             />
-            {type === 'rent' && <p className='formPriceText'>$ / Month</p>}
+            {type === 'rent' && <p className='formPriceText'>$ /Month</p>}
           </div>
 
           {offer && (
