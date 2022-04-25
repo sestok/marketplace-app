@@ -3,14 +3,23 @@ import { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
+import { v4 as uuidv4 } from 'uuid'
+import { toast } from 'react-toastify'
+import { db } from '../firebase.config'
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage'
 
 function NewListing() {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     type: 'sale',
     name: '',
-    seats: '',
-    wheels: '',
+    seats: '4',
+    wheels: '13',
     autoParking: true,
     address: '',
     images: {},
@@ -53,6 +62,28 @@ function NewListing() {
   }, [isMounted])
   const onSubmit = (e) => {
     e.preventDefault()
+    setLoading(true)
+    if (discountedPrice >= regularPrice) {
+      setLoading(false)
+      toast.error('Discounted price needs to be less than regular price')
+      return
+    }
+    if (images.length > 6) {
+      setLoading(false)
+      toast.error('Max 6 images')
+      return
+    }
+    if (discountedPrice >= regularPrice) {
+      setLoading(false)
+      toast.error('Discounted price needs to be less than regular price')
+      return
+    }
+    if (images.length > 6) {
+      setLoading(false)
+      toast.error('Max 6 images')
+      return
+    }
+    
   }
   const onMutate = (e) => {
     let boolean = null
