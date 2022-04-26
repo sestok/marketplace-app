@@ -5,7 +5,7 @@ import wheelIcon from '../assets/svg/wheelIcon.svg'
 import carSeats from '../assets/svg/carSeats.svg'
 import autoParking from '../assets/svg/autoParking.svg'
 
-function ListingItem({ listing, onDelete }) {
+function ListingItem({ listing, id, onDelete }) {
   return (
     <li className='categoryListing'>
       <Link
@@ -18,7 +18,7 @@ function ListingItem({ listing, onDelete }) {
           className='categoryListingImg'
         />
         <div className='categoryListingDetails'>
-          <p className='categoryListingLocation'>{listing.location}</p>
+          <p className='categoryListingLocation'>{listing.address}</p>
           <p className='categoryListingName'>{listing.name}</p>
           <p className='categoryListingPrice'>
             USD{' '}
