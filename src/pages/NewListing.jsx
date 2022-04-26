@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid'
@@ -23,8 +24,6 @@ function NewListing() {
     autoParking: true,
     address: '',
     images: {},
-    latitude: 0,
-    longitude: 0,
     offer: true,
     regularPrice: 0,
     discountedPrice: 0,
@@ -38,8 +37,6 @@ function NewListing() {
     address,
     offer,
     images,
-    latitude,
-    longitude,
     regularPrice,
     discountedPrice,
   } = formData
@@ -60,12 +57,13 @@ function NewListing() {
       isMounted.current = false
     }
   }, [isMounted])
-  const onSubmit = (e) => {
+  //
+  const onSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     if (discountedPrice >= regularPrice) {
       setLoading(false)
-      toast.error('Discounted price needs to be less than regular price')
+      console.log('Discounted price needs to be less than regular price')
       return
     }
     if (images.length > 6) {
@@ -73,17 +71,61 @@ function NewListing() {
       toast.error('Max 6 images')
       return
     }
-    if (discountedPrice >= regularPrice) {
-      setLoading(false)
-      toast.error('Discounted price needs to be less than regular price')
-      return
+    // Store image in firebase
+    const storeImage = async (image) => {
+      return new Promise((resolve, reject) => {
+        const storage = getStorage()
+        const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
+        const storageRef = ref(storage, 'images/' + fileName)
+        const uploadTask = uploadBytesResumable(storageRef, image)
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            console.log('Upload is ' + progress + '% done')
+            switch (snapshot.state) {
+              case 'paused':
+                console.log('Upload is paused')
+                break
+              case 'running':
+                console.log('Upload is running')
+                break
+              default:
+                break
+            }
+          },
+          (error) => {
+            reject(error)
+          },
+          () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              resolve(downloadURL)
+            })
+          }
+        )
+      })
     }
-    if (images.length > 6) {
+    const imageUrls = await Promise.all(
+      [...images].map((image) => storeImage(image))
+    ).catch(() => {
       setLoading(false)
-      toast.error('Max 6 images')
+      toast.error('Images not uploaded')
       return
+    })
+    const formDataCopy = {
+      ...formData,
+      imageUrls,
+      timestamp: serverTimestamp(),
     }
-    
+    delete formDataCopy.images
+    !formDataCopy.offer && delete formDataCopy.discountedPrice
+    const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
+    setLoading(false)
+    toast.success('Listing saved')
+    navigate(`/cat/${formDataCopy.type}/${docRef.id}`)
   }
   const onMutate = (e) => {
     let boolean = null
