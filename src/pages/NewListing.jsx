@@ -56,7 +56,7 @@ function NewListing() {
     return () => {
       isMounted.current = false
     }
-  },[])
+  }, [])
   //
   const onSubmit = async (e) => {
     e.preventDefault()
