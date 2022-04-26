@@ -21,10 +21,10 @@ function NewListing() {
     name: '',
     seats: '4',
     wheels: '13',
-    autoParking: true,
+    autoParking: false,
     address: '',
     images: {},
-    offer: true,
+    offer: false,
     regularPrice: 0,
     discountedPrice: 0,
   })
@@ -56,7 +56,7 @@ function NewListing() {
     return () => {
       isMounted.current = false
     }
-  }, [isMounted])
+  },[])
   //
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -112,7 +112,7 @@ function NewListing() {
       [...images].map((image) => storeImage(image))
     ).catch(() => {
       setLoading(false)
-      toast.error('Images not uploaded')
+      toast.error('Error uploading images')
       return
     })
     const formDataCopy = {
