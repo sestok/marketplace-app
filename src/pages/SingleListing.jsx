@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth'
 import { db } from '../firebase.config'
 import Spinner from '../components/Spinner'
 import shareIcon from '../assets/svg/shareIcon.svg'
+import { toast } from 'react-toastify'
 
 function SingleListing() {
   const [listing, setListing] = useState(null)
@@ -15,18 +16,58 @@ function SingleListing() {
   const params = useParams()
   const auth = getAuth()
   useEffect(() => {
-      const fetchListing = async () => {
-          const docRef = doc(db, 'listings', params.listingId)
-          const docSnap = await getDoc(docRef)
-          if(docSnap.exists()) {
-              console.log(docSnap.data())
-              setListing(docSnap.data())
-              setLoading(false)
-          }
+    const fetchListing = async () => {
+      const docRef = doc(db, 'listings', params.listingId)
+      const docSnap = await getDoc(docRef)
+      if (docSnap.exists()) {
+        console.log(docSnap.data())
+        setListing(docSnap.data())
+        setLoading(false)
       }
-      fetchListing()
+    }
+    fetchListing()
   }, [navigate, params.listingId])
-  return <div>SingleListing</div>
+  if (loading) {
+    return <Spinner />
+  }
+  return (
+    <main>
+      {/* Slider */}
+      <div
+        className='shareIconDiv'
+        onClick={() => {
+          navigator.clipboard.writeText(window.location.href)
+          setShareLinkCopied(true)
+          toast.success('Link Copied', {
+            autoClose: 1000,
+            hideProgressBar: true,
+          })
+          setTimeout(() => {
+            setShareLinkCopied(false)
+          }, 2000)
+        }}
+      >
+        <img src={shareIcon} alt='Share' />
+      </div>
+      <div className='listingDetails'>
+        <p className='listingName'>{listing.name}</p>
+        <p className='listingName'>
+          {'$'}
+          {listing.offer
+            ? listing.discountedPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            : listing.regularPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+        </p>
+        <p className='listingLocation'>{listing.address}</p>
+        <p className='listingType'>
+          For {listing.type === 'rent' ? 'Rent' : 'Sale'}
+        </p>
+      </div>
+    </main>
+  )
 }
 
 export default SingleListing
