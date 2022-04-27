@@ -8,6 +8,15 @@ import Spinner from '../components/Spinner'
 import shareIcon from '../assets/svg/shareIcon.svg'
 
 function SingleListing() {
+  const [listing, setListing] = useState(null)
+  const [loading, setLoading] = useState(null)
+  const [shareLinkCopied, setShareLinkCopied] = useState(null)
+  const navigate = useNavigate()
+  const params = useParams()
+  const auth = getAuth()
+  useEffect(() => {
+      
+  })
   return <div>SingleListing</div>
 }
 
