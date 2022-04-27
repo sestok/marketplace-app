@@ -8,10 +8,7 @@ import autoParking from '../assets/svg/autoParking.svg'
 function ListingItem({ listing, id, onDelete }) {
   return (
     <li className='categoryListing'>
-      <Link
-        to={`/cat/${listing.type}/${id}`}
-        className='categoryListingLink'
-      >
+      <Link to={`/cat/${listing.type}/${id}`} className='categoryListingLink'>
         <img
           src={listing.imageUrls[0]}
           alt={listing.name}
@@ -21,7 +18,7 @@ function ListingItem({ listing, id, onDelete }) {
           <p className='categoryListingLocation'>{listing.address}</p>
           <p className='categoryListingName'>{listing.name}</p>
           <p className='categoryListingPrice'>
-            USD{' '}
+            {'$'}
             {listing.offer
               ? listing.discountedPrice
                   .toString()

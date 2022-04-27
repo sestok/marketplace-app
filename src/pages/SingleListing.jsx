@@ -15,6 +15,16 @@ function SingleListing() {
   const navigate = useNavigate()
   const params = useParams()
   const auth = getAuth()
+  const regularPriceNew = listing.regularPrice
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  const discountedPriceNew = listing.discountedPrice
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  const discounteAmount = listing.regularPrice - listing.discountedPrice
+  const discounteAmountSum = discounteAmount
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   useEffect(() => {
     const fetchListing = async () => {
       const docRef = doc(db, 'listings', params.listingId)
@@ -53,18 +63,15 @@ function SingleListing() {
         <p className='listingName'>{listing.name}</p>
         <p className='listingName'>
           {'$'}
-          {listing.offer
-            ? listing.discountedPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-            : listing.regularPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          {listing.offer ? discountedPriceNew : regularPriceNew}
         </p>
         <p className='listingLocation'>{listing.address}</p>
         <p className='listingType'>
           For {listing.type === 'rent' ? 'Rent' : 'Sale'}
         </p>
+        {listing.offer && (
+          <p className='discountPrice'>{'$'}{discounteAmountSum} OFF</p>
+        )}
       </div>
     </main>
   )
