@@ -6,6 +6,16 @@ import carSeats from '../assets/svg/carSeats.svg'
 import autoParking from '../assets/svg/autoParking.svg'
 
 function ListingItem({ listing, id, onDelete }) {
+  const regularPriceNew = listing.regularPrice
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  const discountedPriceNew = listing.discountedPrice
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  const discounteAmount = listing.regularPrice - listing.discountedPrice
+  const discounteAmountSum = discounteAmount
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   return (
     <li className='categoryListing'>
       <Link to={`/cat/${listing.type}/${id}`} className='categoryListingLink'>
@@ -19,19 +29,13 @@ function ListingItem({ listing, id, onDelete }) {
           <p className='categoryListingName'>{listing.name}</p>
           <p className='categoryListingPrice'>
             {'$'}
-            {listing.offer
-              ? listing.discountedPrice
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-              : listing.regularPrice
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            {listing.offer ? discountedPriceNew : regularPriceNew}
             {listing.type === 'rent' && '/ Month'}
           </p>
           <div className='categoryListingInfoDiv'>
             <img src={wheelIcon} alt='Seats' width='17' />
             <p className='categoryListingInfoText'>
-              {listing.wheels > 4
+              {listing.wheels > 12
                 ? `${listing.wheels} Size / Sport`
                 : 'Standard'}
             </p>
