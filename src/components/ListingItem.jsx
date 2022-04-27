@@ -9,7 +9,7 @@ function ListingItem({ listing, id, onDelete }) {
   return (
     <li className='categoryListing'>
       <Link
-        to={`/cat/${listing.type}/${listing.name}`}
+        to={`/cat/${listing.type}/${id}`}
         className='categoryListingLink'
       >
         <img
