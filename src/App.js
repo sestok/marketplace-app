@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import PrivateRoute from './components/PrivateRoute'
 import Category from './pages/Category'
 import NewListing from './pages/NewListing'
+import SingleListing from './pages/SingleListing'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           </Route>
           <Route path='/forgot' element={<ForgotPassword />} />
           <Route path='/new-listing' element={<NewListing />} />
+          <Route path='/cat/:categoryName/listing.Id' element={<SingleListing />} />
         </Routes>
         <Navbar />
       </Router>
