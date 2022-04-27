@@ -29,7 +29,7 @@ function App() {
           </Route>
           <Route path='/forgot' element={<ForgotPassword />} />
           <Route path='/new-listing' element={<NewListing />} />
-          <Route path='/cat/:categoryName/listing.Id' element={<SingleListing />} />
+          <Route path='/cat/:categoryName/:listing.Id' element={<SingleListing />} />
         </Routes>
         <Navbar />
       </Router>
