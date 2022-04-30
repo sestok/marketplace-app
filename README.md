@@ -4,8 +4,3 @@
 2. Firebase Authentication [LINK](https://firebase.google.com/docs/auth)
 3. Photos available on *Unsplash*
 4. React Toastify [LINK](https://fkhadra.github.io/react-toastify/introduction/) 
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
