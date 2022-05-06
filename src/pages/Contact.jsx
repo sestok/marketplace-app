@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 
 function Contact() {
   const [message, setMessage] = useState('')
-  const [ownerId, setOwnerId] = useState(null)
+  const [owner, setOwner] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
   const params = useParams()
   useEffect(() => {
@@ -15,7 +15,7 @@ function Contact() {
       const docRef = doc(db, 'users', params.ownerId)
       const docSnap = await getDoc(docRef)
       if (docSnap.exists()) {
-        setOwnerId(docSnap.data)
+        setOwner(docSnap.data())
       } else {
         toast.error('Error retrieving data')
       }
@@ -27,10 +27,12 @@ function Contact() {
       <header>
         <p className='pageHeader'>Gontact the Owner</p>
       </header>
-      {ownerId !== null && (
-          <main>
-              div.contact
-          </main>
+      {owner !== null && (
+        <main>
+          <div className='contactOwnerId'>
+            <p className='ownerIdName'>{owner.name}</p>
+          </div>
+        </main>
       )}
     </div>
   )
