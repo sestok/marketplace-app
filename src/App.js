@@ -5,6 +5,7 @@ import Offers from './pages/Offers'
 import Profile from './pages/Profile'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import Contact from './pages/Contact'
 import ForgotPassword from './pages/ForgotPassword'
 import Navbar from './components/Navbar'
 import { ToastContainer } from 'react-toastify'
@@ -30,6 +31,7 @@ function App() {
           <Route path='/forgot' element={<ForgotPassword />} />
           <Route path='/new-listing' element={<NewListing />} />
           <Route path='/cat/:categoryName/:listingId' element={<SingleListing />} />
+          <Route path='/contact/:ownerId' element={<Contact />} />
         </Routes>
         <Navbar />
       </Router>
