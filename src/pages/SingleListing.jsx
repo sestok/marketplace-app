@@ -98,7 +98,7 @@ function SingleListing() {
               ? `${listing.seats} seats / Comfortable Mode`
               : `${listing.seats} seats / Standard Mode`}
           </li>
-        </ul>
+        </ul> 
         <br />
         {auth.currentUser?.uid !== listing.userRef && (
           <Link
