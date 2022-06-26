@@ -22,6 +22,7 @@ function Contact() {
     }
     getOwner()
   }, [params.ownerId])
+  const onChange = (e) => setMessage(e.target.value)
   return (
     <div className='pageContainer'>
       <header>
@@ -30,8 +31,31 @@ function Contact() {
       {owner !== null && (
         <main>
           <div className='contactOwnerId'>
-            <p className='ownerIdName'>{owner.name}</p>
+            <p className='ownerIdName'>Reach out to {owner.name}</p>
           </div>
+          <form className='messageForm'>
+            <div className='messageDiv'>
+              <label htmlFor='message' className='messageLabel'>
+                Message
+              </label>
+              <textarea
+                name='messageId'
+                id='message'
+                className='textarea'
+                value={message}
+                onChange={onChange}
+              ></textarea>
+            </div>
+              <a
+                href={`mailto:${owner.email}?Subject=${searchParams.get(
+                  'listingName'
+                )}&body=${message}`}
+              >
+                <button type='button' className='primaryButton'>
+                  Send Message
+                </button>
+              </a>
+          </form>
         </main>
       )}
     </div>
