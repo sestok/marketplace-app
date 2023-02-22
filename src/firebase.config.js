@@ -6,7 +6,7 @@ const firebaseConfig = {
   authDomain: 'marketplace-app-47034.firebaseapp.com',
   projectId: 'marketplace-app-47034',
   storageBucket: 'marketplace-app-47034.appspot.com',
-  messagingSenderId: '',
+  messagingSenderId: '$GITHUB_secret_to_use',
   appId: '',
 }
 
